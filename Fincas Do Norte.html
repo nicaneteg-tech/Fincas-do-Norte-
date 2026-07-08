@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fincas do Norte · Desbroce y mantenimiento de fincas y parcelas</title>
+<meta name="description" content="Desbroce y corte de hierba en fincas, chalets y parcelas de Ferrol, Cedeira y A Coruña. Presupuesto cerrado por WhatsApp.">
+<meta property="og:title" content="Fincas do Norte · Desbroce de fincas y parcelas">
+<meta property="og:description" content="Desbroce profesional en Ferrol, Cedeira, A Coruña y alrededores.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Inter:wght@400;500;600&family=Spline+Sans+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --musgo:#0E1F17;
+    --pino:#16352A;
+    --verde:#2F6B45;
+    --cesped:#58B947;
+    --cesped-claro:#7FCB5B;
+    --niebla:#F3F6EF;
+    --blanco:#FBFCF9;
+    --crema:#EAF1E4;
+    --tinta:#152019;
+    --granito:#586259;
+    --linea:rgba(21,32,25,.12);
+    --linea-osc:rgba(234,241,228,.14);
+    --display:"Bricolage Grotesque",system-ui,sans-serif;
+    --body:"Inter",system-ui,sans-serif;
+    --mono:"Spline Sans Mono",ui-monospace,monospace;
+    --maxw:1180px;
+    --r:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--body);
+    color:var(--tinta);
+    background:var(--niebla);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:var(--display);line-height:1.05;letter-spacing:-.02em;font-weight:600}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .eyebrow{
+    font-family:var(--mono);font-size:.74rem;font-weight:500;
+    letter-spacing:.18em;text-transform:uppercase;
+  }
+
+  /* ---- Buttons ---- */
+  .btn{
+    display:inline-flex;align-items:center;gap:.55em;
+    font-family:var(--body);font-weight:600;font-size:1rem;
+    padding:15px 26px;border-radius:999px;border:1px solid transparent;
+    cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
+    min-height:48px;line-height:1;
+  }
+  .btn svg{width:1.15em;height:1.15em;flex:none}
+  .btn--cta{background:var(--cesped);color:#0B1A12;box-shadow:0 6px 22px -8px rgba(88,185,71,.7)}
+  .btn--cta:hover{background:var(--cesped-claro);transform:translateY(-2px)}
+  .btn--ghost{background:transparent;border-color:var(--linea-osc);color:var(--crema)}
+  .btn--ghost:hover{border-color:var(--cesped);color:#fff;transform:translateY(-2px)}
+  .btn--ghost-dark{background:transparent;border-color:var(--linea);color:var(--tinta)}
+  .btn--ghost-dark:hover{border-color:var(--verde);transform:translateY(-2px)}
+  a:focus-visible,.btn:focus-visible{outline:3px solid var(--cesped-claro);outline-offset:3px;border-radius:8px}
+
+  /* ---- Header ---- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(14,31,23,.82);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--linea-osc);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:.5em;color:var(--crema);font-family:var(--display);font-weight:700;font-size:1.2rem;letter-spacing:-.02em}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--cesped);box-shadow:0 0 0 4px rgba(88,185,71,.2)}
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a.lnk{color:var(--crema);opacity:.82;font-size:.95rem;font-weight:500;transition:opacity .15s}
+  .nav-links a.lnk:hover{opacity:1}
+  .nav .btn{padding:11px 20px;min-height:42px;font-size:.92rem}
+  @media(max-width:760px){.nav-links a.lnk{display:none}}
+
+  /* ---- Hero ---- */
+  .hero{position:relative;color:var(--crema);overflow:hidden;background:var(--musgo)}
+  .hero #topo{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+  .contour{fill:none;stroke:rgba(127,203,91,.2);stroke-width:1.1}
+  .contour--hi{stroke:rgba(127,203,91,.5);stroke-width:1.4}
+  .hero .sweep{
+    position:absolute;top:50%;left:74%;width:760px;height:760px;z-index:2;
+    transform:translate(-50%,-50%);pointer-events:none;opacity:.85;
+    background:conic-gradient(from 0deg, transparent 0deg, rgba(127,203,91,.4) 7deg, transparent 38deg);
+    border-radius:50%;
+    -webkit-mask-image:radial-gradient(circle, rgba(0,0,0,.9) 0%, rgba(0,0,0,.45) 55%, transparent 78%);
+    mask-image:radial-gradient(circle, rgba(0,0,0,.9) 0%, rgba(0,0,0,.45) 55%, transparent 78%);
+    animation:sweep-rotate 6s linear infinite;
+  }
+  @keyframes sweep-rotate{to{transform:translate(-50%,-50%) rotate(360deg)}}
+  .scan-blip{position:absolute;z-index:2;width:8px;height:8px;border-radius:50%;background:var(--cesped-claro)}
+  .scan-blip::before{content:"";position:absolute;inset:-6px;border-radius:50%;border:1px solid rgba(127,203,91,.55);animation:blip 2.6s ease-out infinite}
+  .scan-blip:nth-child(3)::before{animation-delay:.6s}
+  @keyframes blip{0%{transform:scale(.4);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+  .hero::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:linear-gradient(100deg, rgba(11,24,17,.94) 0%, rgba(12,27,19,.55) 46%, rgba(12,27,19,.15) 100%);}
+  .hero-inner{position:relative;z-index:3;padding:104px 0 116px;max-width:740px}
+  .hero .eyebrow{color:var(--cesped-claro);display:inline-flex;align-items:center;gap:.7em;margin-bottom:26px}
+  .hero .eyebrow::before{content:"";width:26px;height:1px;background:var(--cesped-claro);opacity:.7}
+  .hero h1{font-size:clamp(2.5rem,6.2vw,4.6rem);font-weight:700;letter-spacing:-.03em}
+  .hero h1 em{font-style:normal;color:var(--cesped-claro)}
+  .hero p.lead{font-size:clamp(1.06rem,2vw,1.3rem);color:rgba(234,241,228,.82);margin:26px 0 36px;max-width:560px}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+  .chips{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:42px;padding-top:30px;border-top:1px solid var(--linea-osc)}
+  .chip{display:inline-flex;align-items:center;gap:.5em;font-size:.92rem;color:rgba(234,241,228,.82)}
+  .chip svg{width:18px;height:18px;color:var(--cesped-claro);flex:none}
+
+  /* ---- Section scaffolding ---- */
+  section{padding:96px 0}
+  .sec-head{max-width:680px;margin-bottom:56px}
+  .sec-head .eyebrow{color:var(--verde);display:block;margin-bottom:16px}
+  .sec-head h2{font-size:clamp(1.9rem,4vw,2.9rem);color:var(--tinta)}
+  .sec-head p{color:var(--granito);font-size:1.1rem;margin-top:16px}
+
+  /* ---- Beneficios ---- */
+  .grid-ben{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  .ben{
+    background:var(--blanco);border:1px solid var(--linea);border-radius:var(--r);
+    padding:30px 26px;transition:transform .2s ease,box-shadow .2s ease;
+  }
+  .ben:hover{transform:translateY(-4px);box-shadow:0 18px 40px -22px rgba(21,32,25,.4)}
+  .ben .ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:rgba(47,107,69,.1);color:var(--verde);margin-bottom:20px}
+  .ben .ico svg{width:24px;height:24px}
+  .ben h3{font-size:1.22rem;font-weight:600;margin-bottom:10px}
+  .ben p{color:var(--granito);font-size:.98rem}
+  @media(max-width:920px){.grid-ben{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.grid-ben{grid-template-columns:1fr}}
+
+  /* ---- Servicio ---- */
+  .servicio{background:var(--musgo);color:var(--crema)}
+  .servicio .sec-head h2{color:#fff}
+  .servicio .sec-head .eyebrow{color:var(--cesped-claro)}
+  .serv-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center}
+  .serv-copy p{color:rgba(234,241,228,.82);font-size:1.08rem;margin-bottom:18px}
+  .serv-copy strong{color:#fff;font-weight:600}
+  .serv-list{list-style:none;margin-top:26px;display:grid;gap:14px}
+  .serv-list li{display:flex;gap:14px;align-items:flex-start;font-size:1.02rem}
+  .serv-list svg{width:22px;height:22px;color:var(--cesped);flex:none;margin-top:2px}
+  .serv-visual{position:relative;border-radius:20px;overflow:hidden;min-height:440px;background:var(--pino);box-shadow:0 30px 60px -32px rgba(0,0,0,.6)}
+  .serv-visual svg.diagram{position:absolute;inset:0;width:100%;height:100%}
+  .diagram .antes{stroke:rgba(234,241,228,.34);stroke-width:1.6;fill:none;stroke-linecap:round}
+  .diagram .tick{stroke:rgba(234,241,228,.22);stroke-width:1.3;stroke-linecap:round}
+  .diagram .despues{stroke:rgba(127,203,91,.6);stroke-width:1.6;stroke-linecap:round}
+  .diagram .lbl{font-family:var(--mono);font-size:11px;letter-spacing:2.2px;text-transform:uppercase}
+  .diagram .lbl-antes{fill:rgba(234,241,228,.55)}
+  .diagram .lbl-despues{fill:var(--cesped-claro)}
+  .diagram .scanbeam{transform-box:fill-box;transform-origin:center;animation:beam-drift 3.4s ease-in-out infinite}
+  @keyframes beam-drift{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+  .serv-visual::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(10,22,16,0) 32%, rgba(10,22,16,.5) 66%, rgba(10,22,16,.93) 100%)}
+  .serv-overlay{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:32px}
+  .serv-overlay .tag{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cesped-claro)}
+  .serv-overlay h3{font-size:1.5rem;margin:8px 0 8px;color:#fff}
+  .serv-overlay p{color:rgba(234,241,228,.9);font-size:.96rem;max-width:92%}
+  @media(max-width:840px){.serv-grid{grid-template-columns:1fr;gap:40px}}
+
+  /* ---- Pasos ---- */
+  .grid-pasos{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;counter-reset:paso}
+  .paso{position:relative;padding:34px 26px;border:1px solid var(--linea);border-radius:var(--r);background:var(--blanco)}
+  .paso .num{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;color:var(--cesped);font-weight:500;margin-bottom:18px;display:block}
+  .paso .num::before{counter-increment:paso;content:"0" counter(paso) " — "}
+  .paso h3{font-size:1.2rem;margin-bottom:10px}
+  .paso p{color:var(--granito);font-size:.98rem}
+  @media(max-width:760px){.grid-pasos{grid-template-columns:1fr}}
+
+  /* ---- Zona ---- */
+  .zona{background:var(--niebla)}
+  .zona-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+  .zona-list{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 28px}
+  .zona-list span{font-family:var(--mono);font-size:.9rem;background:var(--blanco);border:1px solid var(--linea);padding:9px 16px;border-radius:999px;color:var(--tinta)}
+  .zona p{color:var(--granito);font-size:1.08rem}
+  .zona .ask{margin-top:8px;font-size:1rem;color:var(--tinta)}
+  .zona .ask strong{color:var(--verde)}
+  .zona-vis{aspect-ratio:1/1;border-radius:24px;background:var(--musgo);position:relative;overflow:hidden;display:grid;place-items:center}
+  .zona-vis svg.map{position:absolute;inset:0;width:100%;height:100%}
+  .zona-vis .gal{fill:rgba(88,185,71,.06);stroke:var(--cesped-claro);stroke-width:1.6;stroke-linejoin:round}
+  .zona-vis .marker .pulse{fill:rgba(88,185,71,.28);transform-box:fill-box;transform-origin:center;animation:pulse 2.8s ease-out infinite}
+  @keyframes pulse{0%{transform:scale(.45);opacity:.75}70%{transform:scale(1.7);opacity:0}100%{opacity:0}}
+  .zona-tag{position:absolute;z-index:2;bottom:16px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cesped-claro);text-shadow:0 2px 8px rgba(0,0,0,.55)}
+  @media(max-width:760px){.zona-grid{grid-template-columns:1fr;gap:36px}.zona-vis{max-width:340px}}
+
+  /* ---- Cierre ---- */
+  .cierre{background:var(--musgo);color:var(--crema);text-align:center;position:relative;overflow:hidden}
+  .cierre svg.topo-band{position:absolute;inset:0;width:100%;height:100%;opacity:.5}
+  .cierre-inner{position:relative;z-index:2;max-width:680px;margin:0 auto}
+  .cierre h2{font-size:clamp(2rem,5vw,3.4rem);color:#fff}
+  .cierre p{color:rgba(234,241,228,.82);font-size:1.15rem;margin:20px 0 36px}
+  .cierre-cta{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+  .contact-line{margin-top:40px;display:flex;flex-wrap:wrap;gap:10px 32px;justify-content:center;font-size:1rem}
+  .contact-line a{display:inline-flex;align-items:center;gap:.5em;color:var(--crema);opacity:.9;transition:color .15s}
+  .contact-line a:hover{color:var(--cesped-claro)}
+  .contact-line svg{width:18px;height:18px;color:var(--cesped-claro)}
+
+  /* ---- Footer ---- */
+  footer{background:#0A1610;color:rgba(234,241,228,.62);padding:44px 0}
+  .foot{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center}
+  .foot .brand{font-size:1.05rem}
+  .foot .meta{font-size:.86rem;line-height:1.7}
+  .foot a{color:var(--cesped-claro)}
+
+  /* ---- Reveal ---- */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .reveal{opacity:1;transform:none;transition:none}
+    *{animation:none!important}
+  }
+
+  /* ---- Float WhatsApp (móvil) ---- */
+  .wa-float{
+    position:fixed;right:18px;bottom:18px;z-index:60;
+    width:58px;height:58px;border-radius:50%;background:var(--cesped);
+    display:none;place-items:center;box-shadow:0 10px 30px -8px rgba(88,185,71,.8);
+    color:#0B1A12;
+  }
+  .wa-float svg{width:30px;height:30px}
+  @media(max-width:760px){.wa-float{display:grid}}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="brand"><span class="dot"></span>Fincas do Norte</a>
+    <nav class="nav-links">
+      <a class="lnk" href="#beneficios">Beneficios</a>
+      <a class="lnk" href="#servicio">Servicios</a>
+      <a class="lnk" href="#zona">Zona</a>
+      <a class="btn btn--cta" href="https://wa.me/34681295231?text=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20presupuesto%20para%20desbroce%2Fcorte%20de%20hierba%20en%20mi%20finca." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.13a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.23-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.69 8.23-8.23 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
+        Solicitar presupuesto
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <svg id="topo" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+  <div class="sweep" aria-hidden="true"></div>
+  <span class="scan-blip" style="top:36%;left:66%" aria-hidden="true"></span>
+  <span class="scan-blip" style="top:60%;left:80%" aria-hidden="true"></span>
+  <div class="wrap">
+    <div class="hero-inner">
+      <span class="eyebrow">Ferrol · Cedeira · A Coruña</span>
+      <h1>Desbroce y corte de hierba <em>para tu finca.</em></h1>
+      <p class="lead">Eliminamos maleza y hierba alta en fincas, chalets y parcelas. Presupuesto cerrado según la superficie, sin compromiso.</p>
+      <div class="hero-cta">
+        <a class="btn btn--cta" href="https://wa.me/34681295231?text=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20presupuesto%20para%20desbroce%2Fcorte%20de%20hierba%20en%20mi%20finca." target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.13a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.23-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.69 8.23-8.23 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
+          Solicitar presupuesto
+        </a>
+        <a class="btn btn--ghost" href="tel:+34681295231">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+          681 295 231
+        </a>
+      </div>
+      <div class="chips">
+        <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Presupuesto cerrado</span>
+        <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Maquinaria profesional</span>
+        <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Servicio puntual, sin contrato</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BENEFICIOS ============ -->
+<section id="beneficios">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Beneficios</span>
+      <h2>Cuatro razones para contar con nosotros.</h2>
+      <p>Esto es lo que puedes esperar en cada servicio.</p>
+    </div>
+    <div class="grid-ben">
+      <article class="ben reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></div>
+        <h3>Desbroce eficaz</h3>
+        <p>Maquinaria profesional para maleza, hierba alta y matorral. Trabajo resuelto a la primera.</p>
+      </article>
+      <article class="ben reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <h3>Rapidez</h3>
+        <p>Coordinamos la visita y ejecutamos el servicio en una sola jornada.</p>
+      </article>
+      <article class="ben reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <h3>Conocimiento del terreno</h3>
+        <p>Experiencia con el tipo de vegetación y suelo de las fincas gallegas.</p>
+      </article>
+      <article class="ben reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h3"/></svg></div>
+        <h3>Presupuesto ajustado</h3>
+        <p>Precio cerrado según superficie y estado del terreno. Sin sorpresas.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICIO ============ -->
+<section class="servicio" id="servicio">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Servicios</span>
+      <h2>Desbroce y mantenimiento de fincas.</h2>
+    </div>
+    <div class="serv-grid">
+      <div class="serv-copy reveal">
+        <p>Trabajamos fincas y parcelas en cualquier estado: <strong>maleza alta, matorral cerrado o terreno sin mantenimiento durante meses</strong>. Dejamos la superficie despejada y transitable.</p>
+        <p>Como servicio complementario, realizamos también mantenimiento de césped en chalets y jardines.</p>
+        <ul class="serv-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Desbroce de maleza y matorral</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Corte de hierba alta con maquinaria profesional</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Mantenimiento de césped en chalets y jardines</li>
+        </ul>
+      </div>
+      <div class="serv-visual reveal">
+        <svg class="diagram" viewBox="0 0 400 440" preserveAspectRatio="none" aria-hidden="true">
+          <text class="lbl lbl-antes" x="24" y="34">Antes</text>
+          <text class="lbl lbl-despues" x="376" y="34" text-anchor="end">Después</text>
+          <g class="antes">
+            <path d="M53.4 29.4 L76.9 85.2 L93.3 141.1 L64.8 196.9 L61.1 252.7 L77.7 308.5 L71.9 364.3"/>
+            <path d="M110.1 26.1 L125.0 91.2 L109.6 156.4 L102.5 221.5 L128.9 286.6 L88.9 351.7 L125.5 416.8"/>
+            <path d="M52.2 29.2 L64.8 87.4 L62.2 145.6 L45.4 203.9 L48.0 262.1 L21.6 320.3 L16.3 378.5"/>
+            <path d="M72.7 48.5 L47.0 103.6 L41.1 158.6 L37.1 213.7 L62.5 268.7 L30.8 323.8 L39.5 378.8"/>
+            <path d="M79.5 36.4 L91.7 126.4 L105.6 216.5 L77.9 306.5 L91.7 396.5"/>
+            <path d="M22.7 48.1 L27.4 117.3 L38.0 186.6 L55.5 255.9 L27.7 325.1 L33.0 394.4"/>
+            <path d="M69.9 49.1 L78.1 120.0 L63.7 191.0 L33.1 262.0 L30.5 332.9 L36.0 403.9"/>
+            <path d="M110.5 30.0 L110.5 116.7 L82.8 203.3 L86.9 290.0 L82.4 376.7"/>
+            <path d="M160.1 58.5 L124.6 136.5 L153.7 214.5 L118.2 292.5 L115.6 370.6"/>
+            <path d="M53.7 43.2 L48.1 127.2 L54.8 211.2 L59.6 295.1 L34.4 379.1"/>
+          </g>
+          <g class="tick">
+            <line x1="162.1" y1="335.1" x2="153.1" y2="331.3"/><line x1="82.0" y1="181.2" x2="90.3" y2="178.4"/>
+            <line x1="29.8" y1="47.2" x2="34.6" y2="43.6"/><line x1="73.7" y1="41.2" x2="79.6" y2="41.2"/>
+            <line x1="36.0" y1="166.9" x2="46.2" y2="166.1"/><line x1="117.0" y1="80.0" x2="122.0" y2="75.0"/>
+            <line x1="93.6" y1="215.5" x2="99.0" y2="214.0"/><line x1="74.1" y1="127.0" x2="69.0" y2="123.9"/>
+            <line x1="105.8" y1="30.9" x2="104.9" y2="20.1"/><line x1="156.4" y1="301.3" x2="161.3" y2="296.0"/>
+            <line x1="46.4" y1="331.9" x2="45.4" y2="322.2"/><line x1="72.1" y1="110.1" x2="63.0" y2="104.0"/>
+            <line x1="55.8" y1="229.1" x2="58.1" y2="224.5"/><line x1="171.1" y1="200.7" x2="160.4" y2="198.5"/>
+            <line x1="51.1" y1="102.6" x2="47.1" y2="92.9"/><line x1="152.8" y1="213.7" x2="148.3" y2="205.0"/>
+            <line x1="138.5" y1="213.1" x2="146.8" y2="207.9"/><line x1="83.4" y1="402.5" x2="79.5" y2="397.9"/>
+          </g>
+          <g class="despues">
+            <line x1="222" y1="34" x2="378" y2="34"/><line x1="222" y1="58" x2="352" y2="58"/>
+            <line x1="222" y1="82" x2="378" y2="82"/><line x1="222" y1="106" x2="352" y2="106"/>
+            <line x1="222" y1="130" x2="378" y2="130"/><line x1="222" y1="154" x2="352" y2="154"/>
+            <line x1="222" y1="178" x2="378" y2="178"/><line x1="222" y1="202" x2="352" y2="202"/>
+            <line x1="222" y1="226" x2="378" y2="226"/><line x1="222" y1="250" x2="352" y2="250"/>
+            <line x1="222" y1="274" x2="378" y2="274"/><line x1="222" y1="298" x2="352" y2="298"/>
+            <line x1="222" y1="322" x2="378" y2="322"/><line x1="222" y1="346" x2="352" y2="346"/>
+            <line x1="222" y1="370" x2="378" y2="370"/><line x1="222" y1="394" x2="352" y2="394"/>
+          </g>
+          <rect class="scanbeam" x="196" y="0" width="8" height="440" fill="url(#beamgrad)"/>
+          <defs>
+            <linearGradient id="beamgrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#7FCB5B" stop-opacity="0"/>
+              <stop offset="50%" stop-color="#7FCB5B" stop-opacity=".55"/>
+              <stop offset="100%" stop-color="#7FCB5B" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="serv-overlay">
+          <span class="tag">Servicio puntual</span>
+          <h3>De maleza a terreno llano.</h3>
+          <p>Precio cerrado antes de empezar. Sin contratos: solicitas el servicio cuando lo necesites.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CÓMO FUNCIONA ============ -->
+<section id="pasos">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Cómo funciona</span>
+      <h2>Tres pasos.</h2>
+    </div>
+    <div class="grid-pasos">
+      <article class="paso reveal">
+        <span class="num"></span>
+        <h3>Solicitud por WhatsApp</h3>
+        <p>Indícanos la ubicación y el estado del terreno. Una foto ayuda a preparar el presupuesto.</p>
+      </article>
+      <article class="paso reveal">
+        <span class="num"></span>
+        <h3>Presupuesto cerrado</h3>
+        <p>Valoramos la superficie y confirmamos el precio, sin compromiso.</p>
+      </article>
+      <article class="paso reveal">
+        <span class="num"></span>
+        <h3>Ejecución</h3>
+        <p>Acordamos fecha y realizamos el desbroce o corte en una sola visita.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ZONA ============ -->
+<section class="zona" id="zona">
+  <div class="wrap zona-grid">
+    <div class="reveal">
+      <span class="eyebrow" style="color:var(--verde);display:block;margin-bottom:16px">Zona de trabajo</span>
+      <h2 style="font-size:clamp(1.9rem,4vw,2.9rem)">Cobertura en el norte de Galicia.</h2>
+      <div class="zona-list">
+        <span>Ferrol</span><span>Cedeira</span><span>A Coruña</span><span>+ alrededores</span>
+      </div>
+      <p>Operamos en Ferrol, Cedeira, A Coruña y concellos limítrofes.</p>
+      <p class="ask">¿Tu parcela está fuera de esta zona? <strong>Consúltanos</strong>.</p>
+    </div>
+    <div class="zona-vis reveal" aria-hidden="true">
+      <svg class="map" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+        <g class="grat" stroke="rgba(127,203,91,.07)" stroke-width="1">
+          <line x1="0" y1="133" x2="400" y2="133"/><line x1="0" y1="266" x2="400" y2="266"/>
+          <line x1="133" y1="0" x2="133" y2="400"/><line x1="266" y1="0" x2="266" y2="400"/>
+        </g>
+        <path class="gal" d="M243.2 26.0 L245.7 28.2 L240.6 35.1 L249.0 32.0 L253.9 47.8 L255.7 39.3 L263.5 34.9 L285.0 46.4 L299.4 63.3 L298.1 68.2 L300.6 64.3 L326.6 67.7 L324.8 80.5 L318.0 89.2 L308.8 88.7 L307.5 95.4 L314.6 98.9 L318.0 111.0 L323.4 110.7 L323.1 121.5 L334.8 128.5 L336.6 140.6 L348.0 131.0 L354.1 139.2 L347.6 148.4 L339.0 149.2 L331.4 161.0 L336.0 166.0 L336.6 157.9 L348.6 167.3 L354.9 187.1 L347.7 186.6 L351.6 195.4 L348.1 201.8 L325.2 218.0 L330.5 227.2 L325.0 228.9 L326.7 237.5 L321.1 250.8 L333.8 253.5 L339.8 248.7 L353.9 253.9 L355.0 265.0 L351.4 269.2 L365.4 277.0 L364.4 287.7 L356.4 298.2 L358.5 302.2 L346.8 301.6 L326.7 327.1 L336.1 335.3 L330.3 348.9 L308.2 343.7 L305.6 361.2 L283.7 366.2 L276.0 374.0 L272.7 363.9 L252.0 370.2 L255.5 360.9 L240.7 356.3 L222.1 361.0 L218.1 366.6 L216.0 352.9 L200.4 370.2 L180.9 372.1 L180.1 361.4 L176.4 362.3 L174.2 355.3 L191.5 333.8 L186.9 325.7 L178.6 328.4 L176.5 313.0 L159.4 325.4 L120.0 331.9 L89.8 363.7 L86.0 320.4 L95.7 319.9 L92.5 312.6 L102.2 301.1 L123.4 289.6 L121.1 278.4 L117.0 289.1 L89.6 296.2 L91.8 285.7 L96.8 291.2 L94.0 280.5 L104.8 280.4 L118.1 264.9 L94.0 272.6 L88.3 260.1 L80.7 258.7 L89.8 252.1 L90.1 261.4 L96.5 260.7 L98.3 252.1 L94.5 240.9 L102.6 235.9 L108.6 219.3 L99.0 228.3 L93.3 219.4 L91.6 233.6 L86.3 226.9 L81.3 233.4 L83.6 237.0 L67.7 249.2 L68.2 240.7 L61.4 238.8 L68.9 218.0 L89.2 194.5 L78.0 203.3 L65.0 201.8 L67.1 204.9 L61.7 210.4 L53.8 199.9 L59.3 193.3 L53.9 186.9 L57.1 181.0 L51.0 174.2 L48.9 179.3 L43.2 174.8 L37.0 183.8 L34.8 177.9 L40.1 164.0 L34.6 154.5 L39.5 155.8 L44.8 144.3 L51.7 145.9 L52.0 137.5 L48.4 142.9 L45.4 137.7 L50.7 130.7 L63.1 132.5 L71.6 123.3 L81.0 124.5 L74.4 116.1 L82.5 114.8 L84.6 108.0 L92.8 108.2 L93.7 103.7 L110.4 113.4 L133.2 108.8 L150.5 95.8 L152.2 104.7 L156.2 104.0 L156.3 95.8 L162.6 93.1 L175.2 106.8 L173.4 96.4 L179.8 90.6 L161.3 86.2 L176.2 83.5 L182.6 73.4 L176.3 80.5 L170.3 77.7 L158.2 83.8 L163.9 70.3 L160.6 65.0 L168.6 66.3 L190.1 47.2 L195.2 50.3 L193.9 40.6 L202.1 40.4 L214.5 29.1 L219.1 28.4 L221.6 39.5 L218.1 37.2 L218.7 46.3 L214.5 46.4 L221.9 46.9 L220.1 40.2 L226.0 42.2 L226.3 36.7 L243.2 26.0 Z"/>
+        <g class="marker" transform="translate(171.9,76.1)">
+          <circle class="pulse" r="24"/>
+          <circle r="12" fill="rgba(88,185,71,.22)"/>
+          <circle r="5.5" fill="#58B947"/>
+        </g>
+      </svg>
+      <span class="zona-tag">Ferrol · Cedeira · A&nbsp;Coruña</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CIERRE ============ -->
+<section class="cierre" id="contacto">
+  <svg class="topo-band" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g stroke="rgba(127,203,91,.16)" stroke-width="1.1" fill="none">
+      <path d="M-50 120 Q 300 40 600 130 T 1250 110"/>
+      <path d="M-50 180 Q 320 100 620 190 T 1250 170"/>
+      <path d="M-50 250 Q 300 170 600 260 T 1250 240"/>
+      <path d="M-50 320 Q 320 240 620 330 T 1250 310"/>
+    </g>
+  </svg>
+  <div class="wrap">
+    <div class="cierre-inner reveal">
+      <h2>Maleza o hierba alta. Lo resolvemos.</h2>
+      <p>Solicita presupuesto por WhatsApp. Respuesta el mismo día.</p>
+      <div class="cierre-cta">
+        <a class="btn btn--cta" href="https://wa.me/34681295231?text=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20presupuesto%20para%20desbroce%2Fcorte%20de%20hierba%20en%20mi%20finca." target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.13a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.23-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.69 8.23-8.23 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
+          Solicitar presupuesto
+        </a>
+        <a class="btn btn--ghost" href="tel:+34681295231">Llamar al 681 295 231</a>
+      </div>
+      <div class="contact-line">
+        <a href="tel:+34681295231"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>681 295 231</a>
+        <a href="mailto:nicaneteg@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>nicaneteg@gmail.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap foot">
+    <a href="#top" class="brand"><span class="dot"></span>Fincas do Norte</a>
+    <div class="meta">
+      Desbroce y mantenimiento de fincas y parcelas · Ferrol · Cedeira · A Coruña<br>
+      <a href="tel:+34681295231">681 295 231</a> · <a href="mailto:nicaneteg@gmail.com">nicaneteg@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Float WhatsApp móvil -->
+<a class="wa-float" href="https://wa.me/34681295231?text=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20presupuesto%20para%20desbroce%2Fcorte%20de%20hierba%20en%20mi%20finca." target="_blank" rel="noopener" aria-label="Solicitar presupuesto por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.13a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.23-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.69 8.23-8.23 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
+</a>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- Curvas de nivel del hero ---- */
+  var svg = document.getElementById('topo');
+  if(svg){
+    var W=1200, H=760;
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);
+    var cx=W*0.74, cy=H*0.5, rings=16, step=42, pts=140;
+    var ns='http://www.w3.org/2000/svg';
+    var group=document.createElementNS(ns,'g');
+    for(var i=0;i<rings;i++){
+      var baseR=(i+1)*step, d='';
+      for(var p=0;p<=pts;p++){
+        var ang=(p/pts)*Math.PI*2;
+        var wob=Math.sin(ang*3+i*0.55)*step*0.34
+               +Math.sin(ang*5+i*1.3)*step*0.16
+               +Math.cos(ang*2-i*0.4)*step*0.24;
+        var r=baseR+wob;
+        var x=cx+Math.cos(ang)*r;
+        var y=cy+Math.sin(ang)*r*0.82;
+        d+=(p===0?'M':'L')+x.toFixed(1)+' '+y.toFixed(1)+' ';
+      }
+      d+='Z';
+      var path=document.createElementNS(ns,'path');
+      path.setAttribute('d',d);
+      path.setAttribute('class', (i%4===0)?'contour contour--hi':'contour');
+      group.appendChild(path);
+    }
+    svg.appendChild(group);
+    if(!reduce){
+      var t=0;
+      (function drift(){
+        t+=0.06;
+        group.setAttribute('transform','translate('+(Math.sin(t*0.12)*8)+','+(Math.cos(t*0.1)*6)+')');
+        requestAnimationFrame(drift);
+      })();
+    }
+  }
+
+  /* ---- Reveal on scroll ---- */
+  if(!reduce && 'IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    },{threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(function(el,i){
+      el.style.transitionDelay=(Math.min(i%4,3)*0.07)+'s';
+      io.observe(el);
+    });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});
+  }
+})();
+</script>
+</body>
+</html>
